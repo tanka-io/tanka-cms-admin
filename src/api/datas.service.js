@@ -1,7 +1,13 @@
 import axios from 'axios';
-import config from './config.json';
 import { refresh } from './auth.service.js';
-let url = config.host + "/api/v1/datas";
+import config from '../config/dev.json';
+let path = "/api/v1/datas";
+let url = config.host + path;
+import prodConfig from '../config/prod.json';
+if (process.env.NODE_ENV === 'production') {
+    let host = window.location.protocol + "//" + window.location.host;
+    url = host + path;
+}
 
 export function getAllDatas() {
     return new Promise((resolve, reject) => {

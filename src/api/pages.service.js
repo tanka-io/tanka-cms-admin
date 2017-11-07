@@ -1,8 +1,13 @@
 import axios from 'axios';
-import config from './config.json';
 import { refresh } from './auth.service.js';
-let url = config.host + "/api/v1/pages";
-
+import config from '../config/dev.json';
+let path = "/api/v1/pages";
+let url = config.host + path;
+if (process.env.NODE_ENV === 'production') {
+    let host = window.location.protocol + "//" + window.location.host;
+    url = host + path;
+    console.log(url);
+}
 export function getAllPages() {
     return new Promise((resolve, reject) => {
         axios.get(url).then(response => {

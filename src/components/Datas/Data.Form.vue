@@ -12,7 +12,7 @@
           <label>Titre</label>
           <input type='text' class="form-control" v-model="data._label">
         </div>
-        <div class="col-12" v-if="isNew">
+        <div class="col-12">
           <div class="form-group">
             <label>Schema</label>
             <select class="form-control" v-model="schema" @change="updateData(data,schema)">
@@ -47,9 +47,9 @@ export default {
       type: Array,
       required: true
     },
-    isNew:{
-      type:Boolean,
-      required:false
+    isNew: {
+      type: Boolean,
+      required: false
     }
   },
   data() {
@@ -60,7 +60,7 @@ export default {
   },
   methods: {
     submit: function() {
-      this.$emit("submit",this.schema);
+      this.$emit("submit", this.schema);
     },
     back: function() {
       this.$emit("back");
@@ -74,12 +74,14 @@ export default {
     setLang(l) {
       this.lang = l;
     },
-    updateData(data,schema) {
-      data[schema._title] = this.instantiateType(schema._type);
-      if(schema._type==='object'){
-        schema._children.forEach((s)=>{
-          data[schema._title] = this.updateData(data[schema._title],s);
-        },this);
+    updateData(data, schema) {
+      if (!data[schema._title]) {
+        data[schema._title] = this.instantiateType(schema._type);
+      }
+      if (schema._type === "object") {
+        schema._children.forEach(s => {
+          data[schema._title] = this.updateData(data[schema._title], s);
+        }, this);
       }
       return data;
     },
@@ -87,9 +89,9 @@ export default {
     instantiateType(type) {
       if (type === "text") {
         return {
-          ar:"",
-          fr:"",
-          en:""
+          ar: "",
+          fr: "",
+          en: ""
         };
       } else if (type === "number") {
         return 0;
@@ -105,8 +107,8 @@ export default {
   components: {
     DataFormBlock
   },
-  mounted(){
-    if(!this.isNew){
+  mounted() {
+    if (!this.isNew) {
       this.schema = this.data._schema;
     }
   }

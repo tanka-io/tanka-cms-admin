@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Sectionform :section="section" :pages="pages" @submit="submit" @back="back" pwd=false>
+        <Sectionform :section="section" :pages="pages" :schemas="schemas" @submit="submit" @back="back" pwd=false>
         </Sectionform>
         <button class="btn btn-danger" type="button" @click="remove"> supprimer </button>
     </div>
@@ -11,6 +11,7 @@ const Sectionform = () => import("./Section.Form.vue");
 export default {
   created: function() {
     this.$store.dispatch("getAllPages");
+    this.$store.dispatch("getAllSchemas");
     this.$store.dispatch("getSectionById", this.$route.params.idSection);
   },
   computed: {
@@ -19,6 +20,9 @@ export default {
     },
     pages() {
       return this.$store.getters.getAllPages;
+    },
+    schemas() {
+      return this.$store.getters.getAllSchemas;
     }
   },
   components: {

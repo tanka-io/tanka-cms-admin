@@ -29,6 +29,9 @@
                         <label>Valeur</label>
                         <input type="text" class="form-control" v-model="b[lang].value" required></input>
                       </div>
+                      <div class="form-group">
+                        <button class="btn btn-danger" type="button" @click="remove(b)"> Remove</button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -90,8 +93,14 @@ export default {
       while (size * children.length > 12) {
         size--;
       }
-      console.log("col-" + size);
       return "col-" + size;
+    },
+    remove(block) {
+      this.block.children.forEach((b, i) => {
+        if (b.type === block.type && b[this.lang].value === block[this.lang].value) {
+          this.block.children.splice(i, 1);
+        }
+      }, this);
     }
   }
 };

@@ -10,24 +10,42 @@
               </label>
               <input type="text" class="form-control" v-model="section[lang].title" required></input>
             </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group" v-if="!section.children || (section.children && section.children.length===0) ">
+              <label>Type</label>
+              <select type="text" class="form-control" v-model="section._type" required>
+                <option value="page">Page</option>
+                <option value="template">Data Template</option>
+              </select>
             </div>
-            <div class="col-6">
-              <div class="form-group" v-if="!section.children || (section.children && section.children.length===0) ">
-                <label>Target</label>
-                <select type="text" class="form-control" v-model="section[lang].target" required>
-                  <option v-for="p in pages" :key="p._id" :value="p[lang].title">{{p[lang].title}}</option>
-                </select>
-              </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group" v-if="!section.children || (section.children && section.children.length===0) ">
+              <label>Page</label>
+              <select type="text" class="form-control" v-model="section[lang].target" required>
+                <option v-for="p in pages" :key="p._id" :value="p[lang].title">{{p[lang].title}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-6" v-if="section._type === 'template'">
+            <div class="form-group" v-if="!section.children || (section.children && section.children.length===0) ">
+              <label>Data</label>
+              <select type="text" class="form-control" v-model="section[lang].data" required>
+                <option v-for="s in schemas" :key="s._id" :value="s._id">{{s._title}}</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
+      
       <div class="col-3">
         <button type="button" class="btn btn-primary margin-top" @click="addSubSection">Add Sub Section</button>
       </div>
       <div class="col-12">
         <div v-for="(s,i) in section.children" :key="s._id">
           <hr>
-          <SubSection :section="s" :lang="lang" :pages="pages" :index="i"></SubSection>
+          <SubSection :section="s" :lang="lang" :pages="pages" :schemas="schemas" :index="i"></SubSection>
         </div>
       </div>
     </div>
@@ -48,6 +66,10 @@ export default {
       required: true
     },
     pages: {
+      type: Array,
+      required: true
+    },
+    schemas: {
       type: Array,
       required: true
     },

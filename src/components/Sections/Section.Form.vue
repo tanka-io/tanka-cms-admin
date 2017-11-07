@@ -8,7 +8,7 @@
           <button @click="setLang('ar')" type="button" v-bind:class="isSelected('ar')">Ar</button>
           <button @click="setLang('en')" type="button" v-bind:class="isSelected('en')">En</button>
         </div>
-        <SubSectionComponent :section="section" :lang="lang" :pages="pages"></SubSectionComponent>
+        <SubSectionComponent :section="section" :lang="lang" :pages="pages" :schemas="schemas"></SubSectionComponent>
         <div class="col-12">
           <div class="form-group">
             <button class="btn btn-primary" type="submit"> Valider </button>
@@ -30,6 +30,10 @@ export default {
       required: true
     },
     pages: {
+      type: Array,
+      required: true
+    },
+    schemas: {
       type: Array,
       required: true
     }

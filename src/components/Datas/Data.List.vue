@@ -2,6 +2,7 @@
     <table class="table table-hover table-striped table-bordered">
         <thead>
             <tr>
+                <th>Type</th>
                 <th>Title</th>
                 <th>Date</th>
                 <th>Actions</th>
@@ -10,6 +11,7 @@
         <tbody>
             <tr v-for="data in datas" v-bind:key="data._id">
                 <td>{{data._label}}</td>
+                <td>{{data._schema._title}}</td>
                 <td>{{data._createdAt | formatDate}}</td>
                 <td>
                     <router-link :to="{ path:data._id+ '/edit'}" append>

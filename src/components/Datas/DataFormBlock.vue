@@ -3,9 +3,9 @@
     <div class="col-11 offset-1 border">
       <div class="form-group">
         <label>{{schema._title}}</label>
-        <input class="form-control" type="number" v-if="schema._type==='number'" v-model="data[getTitle(schema)]">
-        <textarea class="form-control" v-if="schema._type==='text'" v-model="data[getTitle(schema)][lang]"></textarea>
-        <Datepicker v-if="schema._type==='date'" :inline="true" v-model="data[getTitle(schema)]"></Datepicker>
+        <input class="form-control" type="number" v-if="schema._type==='number'" v-model="data[getTitle(schema)]" required>
+        <textarea class="form-control" v-if="schema._type==='text'" v-model="data[getTitle(schema)][lang]" required></textarea>
+        <Datepicker v-if="schema._type==='date'" :inline="true" v-model="data[getTitle(schema)]" required></Datepicker>
           <!-- {{data}}<br><br>
           {{schema}} -->
         <div class="col-11 offset-1" v-if="schema._type==='object'">

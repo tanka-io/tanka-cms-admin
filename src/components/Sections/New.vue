@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SectionForm :section="section" :pages="pages" @submit="add" @back="back">
+    <SectionForm :section="section" :pages="pages" :schemas="schemas" @submit="add" @back="back">
     </SectionForm>
   </div>
 </template>
@@ -35,10 +35,14 @@ export default {
   },
   created() {
     this.$store.dispatch("getAllPages");
+    this.$store.dispatch("getAllSchemas");
   },
   computed: {
     pages() {
       return this.$store.getters.getAllPages;
+    },
+    schemas() {
+      return this.$store.getters.getAllSchemas;
     }
   }
 };

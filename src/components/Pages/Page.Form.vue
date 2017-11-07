@@ -18,7 +18,7 @@
           <hr>
         </div>
         <div class="col-12">
-          <BlockComponent v-for="b in page.children" :key="b._id" :block="b" :lang="lang" @parentAdd="parentAdd"></BlockComponent>
+          <BlockComponent v-for="b in page.children" :key="b._id" :block="b" :lang="lang" @parentAdd="parentAdd" @remove="remove"></BlockComponent>
         </div>
         <div class="col-12">
           <button class="max" type="button" @click="parentAdd">+</button>
@@ -72,6 +72,13 @@ export default {
     parentAdd(){
       let b = new Object();
       this.page.children.push(b);
+    },
+    remove(block){
+      this.page.children.forEach((b,i)=> {
+        if(b.type === block.type && b[lang].value === block[lang].value){
+          this.page.children.splice(i,1);
+        }
+      }, this);
     }
   },
   components: {
