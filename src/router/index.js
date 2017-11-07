@@ -7,12 +7,14 @@ Vue.use(Router)
 const Index = () => import('@/components/Index.vue');
 const PagesRoot = () => import('@/components/Pages/Pages.Root.vue');
 const SectionsRoot = () => import('@/components/Sections/Sections.Root.vue');
+const ThemesRoot = () => import('@/components/Themes/Themes.Root.vue');
 const DatasRoot = () => import('@/components/Datas/Datas.Root.vue');
 const SchemasRoot = () => import('@/components/Schemas/Schemas.Root.vue');
 
 // Routers
 import PagesRouter from './pages.js';
 import SectionsRouter from './sections.js';
+import ThemesRouter from './themes.js';
 import DatasRouter from './datas.js';
 import SchemasRouter from './schemas.js';
 
@@ -34,6 +36,11 @@ export default new Router({
       path: '/sections',
       component: SectionsRoot,
       children: SectionsRouter
+    },
+    {
+      path: '/themes',
+      component: ThemesRoot,
+      children: ThemesRouter
     },
     {
       path: '/datas',

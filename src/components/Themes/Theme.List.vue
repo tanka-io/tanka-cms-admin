@@ -3,16 +3,18 @@
         <thead>
             <tr>
                 <th>Title</th>
+                <th>Active</th>
                 <th>Date</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            <tr v-for="page in filtered" v-bind:key="page._id">
-                <td>{{page[lang].title}}</td>
-                <td>{{page.createdAt | formatDate}}</td>
+            <tr v-for="theme in themes" v-bind:key="theme._id">
+                <td>{{theme.title}}</td>
+                <td><i class="fa fa-check" v-if="theme.active"></i></td>
+                <td>{{theme.createdAt | formatDate}}</td>
                 <td>
-                    <router-link :to="{ path:page._id+ '/edit'}" append>
+                    <router-link :to="{ path:theme._id+ '/edit'}" append>
                         <button class="btn btn-info">Modifier</button>
                     </router-link>
                 </td>
@@ -24,28 +26,13 @@
 <script>
 export default {
   props: {
-    pages: {
+    themes: {
       type: Array,
       required: true
     },
     lang: {
       type: String,
       required: true
-    },
-    filter: {
-      type: String,
-      required: false
-    }
-  },
-  computed: {
-    filtered() {
-      let filtered = this.pages;
-      return filtered.filter(e => {
-        if (e[this.lang].title.toLowerCase().indexOf(this.filter.toLowerCase()) === -1) {
-          return false;
-        }
-        return true;
-      });
     }
   }
 };
