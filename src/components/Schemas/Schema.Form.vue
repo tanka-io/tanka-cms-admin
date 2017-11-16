@@ -3,7 +3,7 @@
     <form class="container" v-on:submit.prevent="submit">
       <div class="row">
         <div class="col-12">
-          <DataBlockComponent :block="schema"></DataBlockComponent>
+          <DataBlockComponent  :schemas="schemas" :block="schema"></DataBlockComponent>
         </div>
         <div class="col-12">
           <div class="form-group">
@@ -24,6 +24,10 @@ export default {
   props: {
     schema: {
       type: Object,
+      required: true
+    },
+    schemas: {
+      type: Array,
       required: true
     }
   },

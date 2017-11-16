@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Pageform :page="page" @submit="submit" @back="back" pwd=false>
+        <Pageform :page="page" :schemas="schemas" @submit="submit" @back="back" pwd=false>
         </Pageform>
         <button class="btn btn-danger" type="button" @click="remove"> supprimer </button>
     </div>
@@ -10,11 +10,15 @@
 const Pageform = () => import("./Page.Form.vue");
 export default {
   created: function() {
+    this.$store.dispatch("getAllSchemas");
     this.$store.dispatch("getPageById", this.$route.params.idPage);
   },
   computed: {
     page() {
       return this.$store.getters.getSelectedPage;
+    },
+    schemas() {
+      return this.$store.getters.getAllSchemas;
     }
   },
   components: {

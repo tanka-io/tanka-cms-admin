@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PageForm :page="page" @submit="add" @back="back">
+    <PageForm :page="page" :schemas="schemas" @submit="add" @back="back">
     </PageForm>
   </div>
 </template>
@@ -37,6 +37,14 @@ export default {
   },
   components: {
     PageForm
+  },
+  created() {
+    this.$store.dispatch("getAllSchemas");
+  },
+  computed: {
+    schemas() {
+      return this.$store.getters.getAllSchemas;
+    }
   }
 };
 </script>

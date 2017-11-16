@@ -1,13 +1,13 @@
 <template>
   <div>
-    <SchemaForm :schema="schema" @submit="add" @back="back">
+    <SchemaForm :schema="schema" :schemas="schemas" @submit="add" @back="back">
     </SchemaForm>
   </div>
 </template>
 
 <script>
 const SchemaForm = () => import("./Schema.Form.vue");
-import DataBlock from '@/models/DataBlock.js';
+import DataBlock from "@/models/DataBlock.js";
 export default {
   data() {
     return {
@@ -32,6 +32,14 @@ export default {
   },
   components: {
     SchemaForm
+  },
+  computed: {
+    schemas() {
+      return this.$store.getters.getAllSchemas;
+    }
+  },
+  created() {
+    this.$store.dispatch("getAllSchemas");
   }
 };
 </script>

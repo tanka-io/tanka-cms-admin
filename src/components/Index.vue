@@ -1,13 +1,12 @@
 <template>
   <div>
-      <h1>I'm just the Index</h1>
+    <h1>Tanka CMS</h1>
+    <h3>The content management system for data driven websites</h3>
   </div>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
 <style>

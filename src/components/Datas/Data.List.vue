@@ -2,8 +2,8 @@
     <table class="table table-hover table-striped table-bordered">
         <thead>
             <tr>
-                <th>Type</th>
                 <th>Title</th>
+                <th>Type</th>
                 <th>Date</th>
                 <th>Actions</th>
             </tr>

@@ -1,24 +1,23 @@
 <template>
-    <div>
-        <Schemaform :schema="schema" :pages="pages" @submit="submit" @back="back" pwd=false>
-        </Schemaform>
-        <button class="btn btn-danger" type="button" @click="remove"> supprimer </button>
-    </div>
+  <div>
+    <Schemaform :schema="schema" :schemas="schemas" @submit="submit" @back="back" pwd=false>
+    </Schemaform>
+    <button class="btn btn-danger" type="button" @click="remove"> supprimer </button>
+  </div>
 </template>
 
 <script>
 const Schemaform = () => import("./Schema.Form.vue");
 export default {
   created: function() {
-    this.$store.dispatch("getAllPages");
     this.$store.dispatch("getSchemaById", this.$route.params.idSchema);
   },
   computed: {
     schema() {
       return this.$store.getters.getSelectedSchema;
     },
-    pages() {
-      return this.$store.getters.getAllPages;
+    schemas() {
+      return this.$store.getters.getAllSchemas;
     }
   },
   components: {
@@ -26,9 +25,14 @@ export default {
   },
   methods: {
     submit() {
-      this.$store.dispatch("editSchema", this.schema).then(f => {
-        this.$router.go(-1);
-      });
+      this.$store
+        .dispatch("editSchema", this.schema)
+        .then(f => {
+          this.$router.go(-1);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
     back() {
       this.$router.go(-1);

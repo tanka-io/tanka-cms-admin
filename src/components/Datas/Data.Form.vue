@@ -78,7 +78,7 @@ export default {
       if (!data[schema._title]) {
         data[schema._title] = this.instantiateType(schema._type);
       }
-      if (schema._type === "object") {
+      if (schema._type === "object" ) {
         schema._children.forEach(s => {
           data[schema._title] = this.updateData(data[schema._title], s);
         }, this);
@@ -99,7 +99,7 @@ export default {
         return new Date();
       } else if (type === "array") {
         return new Array();
-      } else if (type === "object") {
+      } else {
         return new Object();
       }
     }

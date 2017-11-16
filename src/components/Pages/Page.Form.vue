@@ -9,9 +9,34 @@
           <button @click="setLang('en')" type="button" v-bind:class="isSelected('en')">En</button>
         </div>
         <div class="col-12 border" v-if="page">
-          <div class="form-group">
-            <label>Title</label>
-            <input type="text" class="form-control" v-model="page[lang].title" required></input>
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group">
+                <label>Title</label>
+                <input type="text" class="form-control" v-model="page[lang].title" required></input>
+              </div>
+            </div>
+            <div class="col-12">
+              <button class="btn btn-primary" type="button" @click="addData">Add Data Source</button>
+            </div>
+            <div class="col-12" v-for="(d,i) in page.dataSource" :key="d._id">
+              <div class="row">
+                <div class="col-6">
+                  <div class="form-group">
+                    <label>Type</label>
+                    <select type="text" class="form-control" v-model="page.dataSource[i].type" required>
+                      <option v-for="s in schemas" :value="s._id" :key="s._id">{{s._title}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="form-group">
+                    <label>Value</label>
+                    <input type="text" class="form-control" v-model="page.dataSource[i].value" required></input>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="col-12">
@@ -45,6 +70,10 @@ export default {
     page: {
       type: Object,
       required: true
+    },
+    schemas: {
+      type: Array,
+      required: true
     }
   },
   data() {
@@ -69,16 +98,23 @@ export default {
     setLang(l) {
       this.lang = l;
     },
-    parentAdd(){
+    parentAdd() {
       let b = new Object();
       this.page.children.push(b);
     },
-    remove(block){
-      this.page.children.forEach((b,i)=> {
-        if(b.type === block.type && b[lang].value === block[lang].value){
-          this.page.children.splice(i,1);
+    remove(block) {
+      this.page.children.forEach((b, i) => {
+        if (b.type === block.type && b[lang].value === block[lang].value) {
+          this.page.children.splice(i, 1);
         }
       }, this);
+    },
+    addData() {
+      if (!this.page.dataSource) {
+        this.page.dataSource = new Array();
+      }
+      this.page.dataSource.push({});
+      this.$forceUpdate();
     }
   },
   components: {
@@ -89,7 +125,6 @@ export default {
 </script>
 
 <style scoped>
-
 .max {
   width: 100%;
   height: 100%;

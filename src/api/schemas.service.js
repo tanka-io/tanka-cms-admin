@@ -15,7 +15,7 @@ export function getAllSchemas() {
             let schemas = response.data.data;
             resolve(schemas);
         }).catch((err) => {
-            if (err.response.status === 401) {
+            if (err.status === 401) {
                 refresh().then(() => {
                     getAllSchemas();
                 }).catch(() => {
@@ -32,7 +32,7 @@ export function getSchemaById(id) {
             let schema = response.data.data;
             resolve(schema);
         }).catch(err => {
-            if (err.response.status === 401) {
+            if (err.status === 401) {
                 refresh().then(() => {
                     getSchemaById(id);
                 }).catch(() => {
@@ -50,7 +50,7 @@ export function insertSchema(schema) {
             let schema = response.data.data;
             resolve(schema);
         }).catch(err => {
-            if (err.response.status === 401) {
+            if (err.status === 401) {
                 refresh().then(() => {
                     insertSchema(schema);
                 }).catch(() => {
@@ -69,7 +69,7 @@ export function editSchema(schema) {
             let schema = response.data.data;
             resolve(schema);
         }).catch(err => {
-            if (err.response.status === 401) {
+            if (err.status === 401) {
                 refresh().then(() => {
                     editSchema(schema);
                 }).catch(() => {
@@ -86,7 +86,7 @@ export function deleteSchema(id) {
         axios.delete(url + "/" + id).then(response => {
             resolve();
         }).catch(err => {
-            if (err.response.status === 401) {
+            if (err.status === 401) {
                 refresh().then(() => {
                     deleteSchema(id);
                 }).catch(() => {
