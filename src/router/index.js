@@ -10,6 +10,8 @@ const SectionsRoot = () => import('@/components/Sections/Sections.Root.vue');
 const ThemesRoot = () => import('@/components/Themes/Themes.Root.vue');
 const DatasRoot = () => import('@/components/Datas/Datas.Root.vue');
 const SchemasRoot = () => import('@/components/Schemas/Schemas.Root.vue');
+const ChartsRoot = () => import('@/components/Charts/Charts.Root.vue');
+const WizardRoot = () => import('@/components/Wizard/Wizard.Root.vue');
 
 // Routers
 import PagesRouter from './pages.js';
@@ -17,6 +19,8 @@ import SectionsRouter from './sections.js';
 import ThemesRouter from './themes.js';
 import DatasRouter from './datas.js';
 import SchemasRouter from './schemas.js';
+import ChartsRouter from './charts.js';
+import WizardRouter from './wizard';
 
 
 
@@ -51,6 +55,16 @@ export default new Router({
       path: '/schemas',
       component: SchemasRoot,
       children: SchemasRouter
+    },
+    {
+      path: '/charts',
+      component: ChartsRoot,
+      children: ChartsRouter
+    },
+    {
+      path: '/wizard',
+      component: WizardRoot,
+      children: WizardRouter
     }
   ]
 })

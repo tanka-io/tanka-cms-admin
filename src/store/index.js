@@ -11,6 +11,7 @@ import DataStore from './datas.store.js'
 import UserStore from './user.store.js'
 import UtilStore from './utilities.store.js'
 import LangStore from './lang.store.js'
+import WizardStore from './wizard.store.js'
 
 
 export default new Vuex.Store({
@@ -22,6 +23,7 @@ export default new Vuex.Store({
         DataStore,
         UserStore,
         UtilStore,
-        LangStore
+        LangStore,
+        WizardStore
     }
 })
