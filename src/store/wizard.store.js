@@ -8,7 +8,8 @@ export default {
                 headers: 0,
                 ends:0,
                 fields: []
-            }
+            },
+            schema:{}
         }
     },
     getters: {

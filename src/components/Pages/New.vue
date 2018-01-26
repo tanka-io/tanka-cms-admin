@@ -15,7 +15,14 @@ export default {
         ar: {},
         fr: {},
         en: {},
-        children: [new Block()]
+        tabs: [
+          {
+            ar: {title:"Tab1"},
+            fr: {title:"Tab1"},
+            en: {title:"Tab1"},
+            children: [new Block()]
+          }
+        ]
       }
     };
   },

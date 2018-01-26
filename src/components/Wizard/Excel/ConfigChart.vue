@@ -35,7 +35,7 @@ export default {
   methods: {
     submit() {
       this.chartWizard.datas = this.filtered;
-      this.$router.push({ path: "fields", apprend: false });
+      this.$router.push({ path: "schema", apprend: false });
     },
     update() {
       this.chartWizard.config.fields = new Array();

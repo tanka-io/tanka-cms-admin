@@ -1,9 +1,9 @@
 <template>
-    <div>
-        <Dataform v-if="data && Object.keys(data).length>0" :data="data" :schemas="schemas" @submit="submit" @back="back" pwd=false>
-        </Dataform>
-        <button class="btn btn-danger" type="button" @click="remove"> supprimer </button>
-    </div>
+  <div>
+    <Dataform v-if="data && Object.keys(data).length>0" :data="data" :schemas="schemas" @submit="submit" @back="back" pwd=false>
+    </Dataform>
+    <button class="btn btn-danger" type="button" @click="remove"> supprimer </button>
+  </div>
 </template>
 
 <script>
@@ -25,8 +25,8 @@ export default {
     Dataform
   },
   methods: {
-    submit() {
-      console.log(this.data)
+    submit(schema) {
+      this.data._schema = schema;
       this.$store.dispatch("editData", this.data).then(f => {
         this.$router.go(-1);
       });

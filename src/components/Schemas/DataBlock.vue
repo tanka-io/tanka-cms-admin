@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="row border">
     <div class="col-12" v-if="block._type==='array' || block._type==='ref'">
       <div class="form-group">
         <label>Name</label>
@@ -15,6 +15,7 @@
           <option value="date">Date</option>
           <option value="array">Array</option>
           <option value="object">Object</option>
+          <option value="file">File</option>
           <option value="ref">Reference</option>
         </select>
       </div>
@@ -31,6 +32,7 @@
           <option value="number">Number</option>
           <option value="date">Date</option>
           <option value="object">Object</option>
+          <option value="file">File</option>
           <option value="ref">Reference</option>
         </select>
         <div class="form-group" v-if="block._arrType==='ref'">
@@ -49,11 +51,12 @@
     </div>
     <div class="col-2">
       <button type="button" class="btn btn-primary margin-top" v-if="block._type==='object'" @click="extend">Etendre</button>
+      <button type="button" class="btn btn-danger margin-top" @click="emitRemove">x</button>
     </div>
     <div class="col-12" v-if="block._type==='object'">
       <div class="row">
         <div class="col-11 offset-1" v-for="b in block._children" :key="b._id">
-          <DataBlock :block="b" :schemas="schemas"></DataBlock>
+          <DataBlock :block="b" :schemas="schemas" @remove="removeBlock"></DataBlock>
         </div>
       </div>
     </div>
@@ -82,6 +85,17 @@ export default {
       let b = new DataBlock();
       this.block._children.push(b);
       this.$forceUpdate();
+    },
+    emitRemove(){
+      this.$emit("remove",this.block);
+    },
+    removeBlock(b){
+      this.block._children.forEach((e,i) => {
+        if(e===b){
+          this.block._children.splice(i,1);
+        }
+      });
+      this.$forceUpdate();
     }
   }
 };
@@ -90,5 +104,9 @@ export default {
 <style scoped>
 .margin-top {
   margin-top: 32px;
+}
+.border {
+  margin-top: 4px;
+  border: 2px solid lightgray !important;
 }
 </style>

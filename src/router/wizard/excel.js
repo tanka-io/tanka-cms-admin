@@ -1,6 +1,6 @@
 const upload = ()=>import('@/components/Wizard/Excel/Upload.vue')
-const fields = ()=>import('@/components/Wizard/Excel/Fields.vue')
 const config = ()=>import('@/components/Wizard/Excel/ConfigChart.vue')
+const schema = ()=>import('@/components/Wizard/Excel/Schema.vue')
 export default [{
     path:'upload',
     component:upload
@@ -8,6 +8,6 @@ export default [{
     path:'config',
     component:config
 },{
-    path:'fields',
-    component:fields
+    path:'schema',
+    component:schema
 }]

@@ -11,7 +11,7 @@ import("@/assets/translation/en.json").then(d => {
 });
 export default {
     state: {
-        lang: "fr",
+        lang: "ar",
         messages: messages
     },
     getters: {

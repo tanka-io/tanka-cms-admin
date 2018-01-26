@@ -17,6 +17,12 @@
               </div>
             </div>
             <div class="col-12">
+              <div class="form-group">
+                <label>Container</label>
+                <input type="checkbox" v-model="page.container">
+              </div>
+            </div>
+            <div class="col-12">
               <button class="btn btn-primary" type="button" @click="addData">Add Data Source</button>
             </div>
             <div class="col-12" v-for="(d,i) in page.dataSource" :key="d._id">
@@ -43,7 +49,28 @@
           <hr>
         </div>
         <div class="col-12">
-          <BlockComponent v-for="b in page.children" :key="b._id" :block="b" :lang="lang" @parentAdd="parentAdd" @remove="remove"></BlockComponent>
+          <div class="row">
+            <div v-if="page.tabs && page.tabs.length>1" v-for="(tab,i) in page.tabs" :key="tab[lang].title" >
+              
+          <button class="btn btn-primary" type="button"@click="setSelectedTab(i)">{{tab[lang].title}}</button>
+           <button class="btn btn-danger" type="button"@click="deleteTab(i)">x</button>
+            </div>
+        <div class="col-12">
+          <button class="btn btn-success" type="button" @click="addTab()">Add Tab</button>
+          </div>
+          </div>
+        </div>
+        <div class="col-12" v-if="page.tabs && page.tabs.length>1">
+          <div class="form-group">
+            <label>Tab Title</label>
+            <input type="text" class="form-control" v-model="page.tabs[selectedTab][lang].title" required>
+          </div>
+        </div>
+        <div class="col-12">
+          <hr>
+        </div>
+        <div class="col-12">
+          <BlockComponent v-for="b in page.tabs[selectedTab].children" :key="b._id" :block="b" :lang="lang" @parentAdd="parentAdd" @remove="remove"></BlockComponent>
         </div>
         <div class="col-12">
           <button class="max" type="button" @click="parentAdd">+</button>
@@ -65,6 +92,7 @@
 <script>
 const BlockComponent = () => import("./Block.vue");
 const Datepicker = () => import("vuejs-datepicker");
+import Block from "@/models/Block.js";
 export default {
   props: {
     page: {
@@ -79,7 +107,8 @@ export default {
   data() {
     return {
       lang: "fr",
-      block: null
+      block: null,
+      selectedTab: 0
     };
   },
   methods: {
@@ -100,12 +129,12 @@ export default {
     },
     parentAdd() {
       let b = new Object();
-      this.page.children.push(b);
+      this.page.tabs[this.selectedTab].children.push(b);
     },
     remove(block) {
-      this.page.children.forEach((b, i) => {
+      this.page.tabs[this.selectedTab].children.forEach((b, i) => {
         if (b.type === block.type && b[lang].value === block[lang].value) {
-          this.page.children.splice(i, 1);
+          this.page.tabs[this.selectedTab].children.splice(i, 1);
         }
       }, this);
     },
@@ -115,6 +144,20 @@ export default {
       }
       this.page.dataSource.push({});
       this.$forceUpdate();
+    },
+    setSelectedTab(i){
+      this.selectedTab= i;
+    },
+    deleteTab(i){
+      this.page.tabs.splice(i,1);
+    },
+    addTab(){
+      this.page.tabs.push({
+            ar: {title:"Tab"+this.page.tabs.length},
+            fr: {title:"Tab"+this.page.tabs.length},
+            en: {title:"Tab"+this.page.tabs.length},
+            children: [new Block()]
+          })
     }
   },
   components: {

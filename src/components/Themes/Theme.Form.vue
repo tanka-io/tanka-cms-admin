@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <form class="container" v-on:submit.prevent="submit" >
+    <form class="container" v-on:submit.prevent="submit">
       <div class="row">
         <div class="col-12">
           <div class="row">
@@ -25,9 +25,19 @@
           </div>
         </div>
         <div class="col-12">
-          <div class="form-group">
-            <label>Navbar Color</label>
-            <input type="text" class="form-control" v-model="theme.navColor">
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label>Navbar Color</label>
+                <input type="text" class="form-control" v-model="theme.navColor">
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label>Nav Item Color</label>
+                <input type="text" class="form-control" v-model="theme.itemColor">
+              </div>
+            </div>
           </div>
         </div>
         <div class="col-12">
@@ -42,7 +52,7 @@
 </template>
 
 <script>
-import { upload } from '@/api/upload.service.js';
+import { upload } from "@/api/upload.service.js";
 const Datepicker = () => import("vuejs-datepicker");
 export default {
   props: {

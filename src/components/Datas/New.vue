@@ -15,7 +15,6 @@ export default {
   },
   methods: {
     add: function(schema) {
-      console.log(this.data)
       this.data._createdAt = new Date();
       this.data._schema = schema;
       this.$store

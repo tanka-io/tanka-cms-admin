@@ -11,6 +11,7 @@ const Schemaform = () => import("./Schema.Form.vue");
 export default {
   created: function() {
     this.$store.dispatch("getSchemaById", this.$route.params.idSchema);
+    this.$store.dispatch("getAllSchemas");
   },
   computed: {
     schema() {

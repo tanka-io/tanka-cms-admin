@@ -8,11 +8,13 @@
 </template>
 
 <script>
-const SchemaList = () => import('./Schema.List.vue');
+const SchemaList = () => import("./Schema.List.vue");
 export default {
   computed: {
     schemas() {
-      return this.$store.getters.getAllSchemas;
+      return this.$store.getters.getAllSchemas.filter(e => {
+        return e._title !== "_data" && e._title !== "_link";
+      });
     },
     lang() {
       return this.$store.getters.getLang;
@@ -24,8 +26,7 @@ export default {
   components: {
     SchemaList
   }
-
-}
+};
 </script>
 
 <style scoped>

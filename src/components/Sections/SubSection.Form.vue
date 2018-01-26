@@ -27,6 +27,12 @@
                 <option v-for="p in pages" :key="p._id" :value="p[lang].title">{{p[lang].title}}</option>
               </select>
             </div>
+            <div class="form-group" v-if="section._type === 'template'">
+              <label>Default Page</label>
+              <select type="text" class="form-control" v-model="section[lang]._default" required>
+                <option v-for="p in pages" :key="p._id" :value="p[lang].title">{{p[lang].title}}</option>
+              </select>
+            </div>
           </div>
           <div class="col-6" v-if="section._type === 'template'">
             <div class="form-group" v-if="!section.children || (section.children && section.children.length===0) ">
@@ -35,10 +41,20 @@
                 <option v-for="s in schemas" :key="s._id" :value="s._id">{{s._title}}</option>
               </select>
             </div>
+            <div class="form-group" v-if="!section.children || (section.children && section.children.length===0) ">
+              <label>Label</label>
+              <input type='text' class="form-control" v-model="section._subLabel">
+            </div>
+          </div>
+          <div class="col-6" v-if="section._type === 'template'">
+            <div class="form-group" v-if="!section.children || (section.children && section.children.length===0) ">
+              <label>Show List</label>
+              <input type='checkbox' class="form-control" v-model="section._showAll">
+            </div>
           </div>
         </div>
       </div>
-      
+
       <div class="col-3">
         <button type="button" class="btn btn-primary margin-top" @click="addSubSection">Add Sub Section</button>
       </div>
