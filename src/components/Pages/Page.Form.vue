@@ -8,7 +8,7 @@
           <button @click="setLang('ar')" type="button" v-bind:class="isSelected('ar')">Ar</button>
           <button @click="setLang('en')" type="button" v-bind:class="isSelected('en')">En</button>
         </div>
-        <div class="col-12 border" v-if="page">
+        <div class="col-12 border" v-if="page && page[lang]">
           <div class="row">
             <div class="col-12">
               <div class="form-group">
@@ -50,26 +50,35 @@
         </div>
         <div class="col-12">
           <div class="row">
-            <div v-if="page.tabs && page.tabs.length>1" v-for="(tab,i) in page.tabs" :key="tab[lang].title" >
-              
-          <button class="btn btn-primary" type="button"@click="setSelectedTab(i)">{{tab[lang].title}}</button>
-           <button class="btn btn-danger" type="button"@click="deleteTab(i)">x</button>
+            <div v-if="page.tabs && page.tabs.length>1" v-for="(tab,i) in page.tabs" :key="tab[lang].title">
+              <button class="btn btn-primary" type="button" @click="setSelectedTab(i)">{{tab[lang].title}}</button>
+              <button class="btn btn-danger" type="button" @click="deleteTab(i)">x</button>
             </div>
-        <div class="col-12">
-          <button class="btn btn-success" type="button" @click="addTab()">Add Tab</button>
-          </div>
+            <div class="col-12">
+              <button class="btn btn-success" type="button" @click="addTab()">Add Tab</button>
+            </div>
           </div>
         </div>
         <div class="col-12" v-if="page.tabs && page.tabs.length>1">
-          <div class="form-group">
-            <label>Tab Title</label>
-            <input type="text" class="form-control" v-model="page.tabs[selectedTab][lang].title" required>
+          <div class="row">
+            <div class="col-10">
+              <div class="form-group">
+                <label>Tab Title</label>
+                <input type="text" class="form-control" v-model="page.tabs[selectedTab][lang].title" required>
+              </div>
+            </div>
+            <div class="col-2">
+              <div class="form-group">
+                <label>Tab Order</label>
+                <input type="text" class="form-control" v-model="page.tabs[selectedTab].order" required>
+              </div>
+            </div>
           </div>
         </div>
         <div class="col-12">
           <hr>
         </div>
-        <div class="col-12">
+        <div class="col-12" v-if="page.tabs && typeof selectedTab !== 'undefined' && page.tabs[selectedTab]">
           <BlockComponent v-for="b in page.tabs[selectedTab].children" :key="b._id" :block="b" :lang="lang" @parentAdd="parentAdd" @remove="remove"></BlockComponent>
         </div>
         <div class="col-12">
@@ -145,19 +154,19 @@ export default {
       this.page.dataSource.push({});
       this.$forceUpdate();
     },
-    setSelectedTab(i){
-      this.selectedTab= i;
+    setSelectedTab(i) {
+      this.selectedTab = i;
     },
-    deleteTab(i){
-      this.page.tabs.splice(i,1);
+    deleteTab(i) {
+      this.page.tabs.splice(i, 1);
     },
-    addTab(){
+    addTab() {
       this.page.tabs.push({
-            ar: {title:"Tab"+this.page.tabs.length},
-            fr: {title:"Tab"+this.page.tabs.length},
-            en: {title:"Tab"+this.page.tabs.length},
-            children: [new Block()]
-          })
+        ar: { title: "Tab" + this.page.tabs.length },
+        fr: { title: "Tab" + this.page.tabs.length },
+        en: { title: "Tab" + this.page.tabs.length },
+        children: [new Block()]
+      });
     }
   },
   components: {

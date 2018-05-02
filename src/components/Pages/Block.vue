@@ -44,7 +44,7 @@
                         <label>Content</label>
                         <CKEditor :content="b[lang].value" @change="getCK($event,b)" required></CKEditor>
                       </div>
-                      <div class="form-group" v-if="b.type === 'title' || b.type === 'image' || b.type === 'chart' || b.type === 'graph' || b.type==='file'">
+                      <div class="form-group" v-if="b.type === 'title' || b.type === 'image' || b.type === 'graph' || b.type==='file'">
                         <label>Valeur</label>
                         <input type="text" class="form-control" v-model="b[lang].value" required></input>
                       </div>
@@ -54,6 +54,26 @@
                       </div>
                       <div class="form-group">
                         <button class="btn btn-danger" type="button" @click="remove(b)"> Remove</button>
+                      </div>
+                      <!-- CHART BLOCK-->
+                      <div class="col-12" v-if="b.type === 'chart'">
+                        <button class="btn btn-primary" type="button" @click="chartAddValue(b)">Add Value</button>
+                        <div class="col-12" v-for="(data,i) in b.value" :key="i">
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="form-group">
+                                <label>label</label>
+                                <input type="text" class="form-control" v-model="b.value[i].label[lang]" required/>
+                              </div>
+                            </div>
+                            <div class="col-6">
+                              <div class="form-group">
+                                <label>Valeur</label>
+                                <input type="text" class="form-control" v-model="b.value[i].value" required/>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -131,6 +151,17 @@ export default {
           this.block.children.splice(i, 1);
         }
       }, this);
+    },
+    chartAddValue(block) {
+      if (
+        !block.value ||
+        (typeof block.value !== "object" ||
+          typeof block.value.length === "undefined")
+      ) {
+        block.value = new Array();
+      }
+      block.value.push({ label: {ar:"جديد"+block.value.length,fr:"nouveau"+block.value.length,en:"new"+block.value.length}, value: 0 });
+      this.$forceUpdate();
     }
   },
   components: {
